@@ -31,14 +31,8 @@ $(function () {
 	//処理実行
 	$viewContents.each(function () {
 
-		var autoTimer;
 
 		//自動スライド関数
-		var autoLoad = function () {
-			autoTimer = setInterval(function () {
-				rollNext();
-			}, $interval);
-		};
 
 		//1個以上の場合のみ
 		if ($viewContentsItemLength > 1) {
@@ -65,8 +59,7 @@ $(function () {
 			//leftをクローン分ずらして1個目の位置に
 			$viewContents.css('left', - $viewContentsItemWidth);
 
-			//自動再生
-			autoLoad();
+			
 		}
 
 		//1個の場合（インジケーター削除、クローン削除、cssリセット）
@@ -78,7 +71,7 @@ $(function () {
 
 		//右回転
 		var rollNext = function () {
-			clearInterval(autoTimer);
+			
 			if (!$viewContents.is(":animated")) {
 				$currentNum++;
 				$viewContents.find('.current').removeClass('current').next().addClass('current');
@@ -103,7 +96,7 @@ $(function () {
 
 		//左回転
 		var rollPrev = function () {
-			clearInterval(autoTimer);
+			
 			if (!$viewContents.is(":animated")) {
 				$currentNum--;
 				$viewContents.find('.current').removeClass('current').prev().addClass('current');
@@ -128,7 +121,7 @@ $(function () {
 		//右クリック
 		$btnNext.click(function () {
 			rollNext();
-			clearInterval(autoTimer);
+		
 			return false;
 		});
 
@@ -143,7 +136,7 @@ $(function () {
 		$indicator.find('li a').click(function () {
 
 			//自動再生タイマーをクリア
-			clearInterval(autoTimer);
+			
 
 			if (!$viewContents.is(":animated")) {
 
@@ -199,17 +192,17 @@ $(function () {
 				//アイテムの数で全体のwidthを設定（クローン分を含む）
 				$viewContents.css('width', $viewContentsItemWidth * ($viewContentsItemLength + 2));
 
-			}, 200);
+			}, 0);
 		});
 
 		//マウスオーバー時は自動再生タイマー停止
 		$view.hover(function () {
-			clearInterval(autoTimer);
+			
 		}, function () {
 			autoLoad();
 		});
 		$indicator.find('li a').hover(function () {
-			clearInterval(autoTimer);
+			
 		}, function () {
 			autoLoad();
 		});
@@ -225,7 +218,7 @@ $(function () {
 				this.slideX = $(this).position().left;
 
 				//自動再生タイマーをクリア
-				clearInterval(autoTimer);
+				
 			},
 
 			//タッチ移動
